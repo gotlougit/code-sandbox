@@ -16,8 +16,8 @@ pkgs.stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     mv parent-ns-enter $out/bin
-    chmod +x dev.sh
-    mv dev.sh $out/bin/code-sandbox
+    chmod +x code-sandbox
+    mv code-sandbox $out/bin/code-sandbox
   '';
   meta = with lib; {
     description = "Create isolated environment for development";
