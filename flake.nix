@@ -7,7 +7,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
     in {
-      packages.${system} = {
+      packages = {
         default = pkgs.callPackage ./default.nix {};
       };
       devShell = pkgs.mkShell {
