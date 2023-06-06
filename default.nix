@@ -1,15 +1,9 @@
-{ pkgs ? import <nixpkgs> {} }:
 { lib, stdenv }:
 
-let
-  slirp4netns = pkgs.slirp4netns;
-  bubblewrap = pkgs.bubblewrap;
-in
-pkgs.stdenv.mkDerivation {
+stdenv.mkDerivation {
   pname = "code-sandbox";
   version = "0.1";
   src = ./.;
-  buildInputs = [ slirp4netns bubblewrap ];
   buildPhase = ''
     g++ parent-ns-enter.c -o parent-ns-enter
   '';
