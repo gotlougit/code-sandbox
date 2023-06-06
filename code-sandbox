@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -eum
+
+exec bwrap \
+  --json-status-fd 3 3> >(
+    PID="$(head -n 1 | jq '."child-pid"')" 
+    parent-ns-enter "/proc/$PID/ns/user" slirp4netns \
+      --disable-host-loopback \
+      --userns-path /proc/self/ns/user \
+      --configure "$PID" \
+      tap0 &>>/tmp/slirp.log \
+  ) \
+  --ro-bind /nix{,} \
+  --ro-bind /etc{,} \
+  --bind-data 4 /etc/resolv.conf  4<<<"nameserver 10.0.2.3" \
+  --ro-bind /run/current-system{,} \
+  --ro-bind "$HOME"/.config/helix{,} \
+  --ro-bind "$HOME"/.config/neofetch{,} \
+  --ro-bind "$HOME"/.gitconfig{,} \
+  --ro-bind "$HOME"/.ssh/known_hosts{,} \
+  --ro-bind "$HOME"/.ssh/config{,} \
+  --bind /run/user/1000/ssh-agent{,} \
+  --bind /run/user/1000/gnupg{,} \
+  --ro-bind "$HOME"/.gnupg/pubring.kbx{,} \
+  --ro-bind "$HOME"/.gnupg/tofu.db{,} \
+  --ro-bind "$HOME"/.gnupg/trustdb.gpg{,} \
+  --ro-bind "$HOME"/.gnupg/gpg.conf{,} \
+  --bind "$HOME"/Code{,} \
+  --dir "$HOME" \
+  --dir /tmp \
+  --dev /dev \
+  --proc /proc \
+  --unshare-user \
+  --unshare-pid \
+  --unshare-net \
+  --unshare-ipc \
+  --unshare-uts \
+  --unshare-cgroup \
+  --die-with-parent \
+  --cap-drop ALL \
+  --hostname code-sandbox \
+  $SHELL
