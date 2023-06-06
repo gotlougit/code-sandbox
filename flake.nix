@@ -8,7 +8,7 @@
       pkgs = import nixpkgs { inherit system; };
     in {
       packages.${system} = {
-        code-sandbox = pkgs.callPackage ./default.nix {};
+        default = pkgs.callPackage ./default.nix {};
       };
     };
 }
