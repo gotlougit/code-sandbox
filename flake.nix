@@ -1,9 +1,14 @@
 {
+  inputs.nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
   description = "code-sandbox flake";
 
   outputs = { self, nixpkgs }:
-    {
-      packages.x86_64-linux.code-sandbox =
-        nixpkgs.legacyPackages.x86_64-linux.callPackage ./default.nix {};
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+    in {
+      packages.${system} = {
+        mypackage = pkgs.callPackage ./default.nix {};
+      };
     };
 }
