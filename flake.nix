@@ -10,5 +10,8 @@
       packages.${system} = {
         default = pkgs.callPackage ./default.nix {};
       };
+      devShell = pkgs.mkShell {
+        buildInputs = [pkgs.slirp4netns pkgs.bubblewrap];
+      };
     };
 }
