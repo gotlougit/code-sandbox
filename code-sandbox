@@ -10,10 +10,11 @@ exec bwrap \
       --configure "$PID" \
       tap0 &>>/tmp/slirp.log \
   ) \
-  --ro-bind /nix{,} \
+  --ro-bind /nix/store{,} \
   --ro-bind /etc{,} \
   --bind-data 4 /etc/resolv.conf  4<<<"nameserver 10.0.2.3" \
   --ro-bind /run/current-system{,} \
+  --ro-bind "$HOME"/.cache/tealdeer{,} \
   --ro-bind "$HOME"/.config/helix{,} \
   --ro-bind "$HOME"/.config/neofetch{,} \
   --ro-bind "$HOME"/.gitconfig{,} \
