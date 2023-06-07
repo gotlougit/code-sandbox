@@ -7,10 +7,10 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
     in {
-      packages = {
+      packages.${system} = {
         default = pkgs.callPackage ./default.nix {};
       };
-      devShell = pkgs.mkShell {
+      devShells.${system}.default = pkgs.mkShell {
         buildInputs = [pkgs.slirp4netns pkgs.bubblewrap];
       };
     };
