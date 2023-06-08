@@ -4,6 +4,6 @@ Comment=Privacy-focused browser made in a collaboration between The Tor Project 
 Exec=mullvad-browser-sandbox %U
 GenericName=Web Browser
 Icon=mullvad-browser
-Name=Mullvad Browser
+Name=Mullvad Browser (Sandbox)
 Type=Application
 Version=1.4
