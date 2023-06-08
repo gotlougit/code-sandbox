@@ -22,4 +22,4 @@ exec bwrap \
   --die-with-parent \
   --cap-drop ALL \
   --hostname gui-sandbox \
-  mullvad-browser
+  mullvad-browser "$@"
