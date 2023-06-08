@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Network;WebBrowser;Security
+Comment=Privacy-focused browser made in a collaboration between The Tor Project and Mullvad
+Exec=mullvad-browser-sandbox %U
+GenericName=Web Browser
+Icon=mullvad-browser
+Name=Mullvad Browser
+Type=Application
+Version=1.4
