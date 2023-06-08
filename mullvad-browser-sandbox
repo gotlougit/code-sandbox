@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -eum
+
+exec bwrap \
+  --ro-bind /nix/store{,} \
+  --ro-bind /etc{,} \
+  --ro-bind /run/current-system{,} \
+  --bind /run/user/1000/wayland-0{,} \
+  --bind "$HOME"/.mullvad{,} \
+  --bind "$HOME"/.local/share/icons{,} \
+  --bind "$HOME"/Downloads{,} \
+  --dir "$HOME" \
+  --dir /tmp \
+  --dev /dev \
+  --proc /proc \
+  --unshare-user \
+  --unshare-pid \
+  --unshare-uts \
+  --unshare-cgroup \
+  --unshare-all \
+  --share-net \
+  --die-with-parent \
+  --cap-drop ALL \
+  --hostname gui-sandbox \
+  mullvad-browser
