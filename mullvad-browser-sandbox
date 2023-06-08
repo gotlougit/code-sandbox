@@ -6,6 +6,7 @@ exec bwrap \
   --ro-bind /etc{,} \
   --ro-bind /run/current-system{,} \
   --bind /run/user/1000/wayland-0{,} \
+  --bind /run/user/1000/pipewire-0{,} \
   --bind "$HOME"/.mullvad{,} \
   --bind "$HOME"/.local/share/icons{,} \
   --bind "$HOME"/Downloads{,} \
