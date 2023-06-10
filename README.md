@@ -1,7 +1,10 @@
-# Code Sandbox
+# Code and App Sandboxes
 
 This is a small effort to create an isolated development environment which only 
 has access to minimum possible directories and files with as less permissions as possible.
+
+It also sandboxes Mullvad Browser and Tor Browser from the rest of your system in an attempt
+to mitigate a browser sandbox vulnerability
 
 It uses bubblewrap underneath for isolating your shell from the rest of the system.
 
