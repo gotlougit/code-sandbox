@@ -16,6 +16,9 @@ stdenv.mkDerivation {
     chmod +x mullvad-browser-sandbox
     mv mullvad-browser-sandbox $out/bin/mullvad-browser-sandbox
     mv mullvadbrowser-sandbox.desktop $out/share/applications/
+    chmod +x tor-browser-sandbox
+    mv tor-browser-sandbox $out/bin/tor-browser-sandbox
+    mv torbrowser-sandbox.desktop $out/share/applications/
   '';
   meta = with lib; {
     description = "Create isolated environments for various programs";

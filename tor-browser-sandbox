@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -eum
+export MOZ_ENABLE_WAYLAND=1
+exec bwrap \
+  --ro-bind /nix/store{,} \
+  --ro-bind /etc{,} \
+  --ro-bind /run/current-system{,} \
+  --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
+  --bind "$XDG_RUNTIME_DIR"/pulse{,} \
+  --bind "$HOME"/Downloads/torbrowser{,} \
+  --dir /tmp \
+  --dev /dev \
+  --proc /proc \
+  --unshare-user \
+  --unshare-pid \
+  --unshare-uts \
+  --unshare-cgroup \
+  --unshare-all \
+  --share-net \
+  --die-with-parent \
+  --cap-drop ALL \
+  --hostname gui-sandbox \
+  tor-browser "$@"
