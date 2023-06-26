@@ -2,12 +2,12 @@
 set -eum
 
 exec bwrap \
-  --ro-bind "$PWD"{,} \
   --ro-bind /nix/store{,} \
   --ro-bind /etc{,} \
   --ro-bind /run/current-system{,} \
   --ro-bind "$HOME"/.rustup{,} \
   --bind "$HOME"/.cargo{,} \
+  --bind "$HOME"/Code{,} \
   --dir "$HOME" \
   --dir /tmp \
   --dev /dev \
