@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -eum
+
+exec bwrap \
+  --ro-bind /nix/store{,} \
+  --ro-bind /etc{,} \
+  --ro-bind /run/current-system{,} \
+  --ro-bind "$HOME"/.rustup{,} \
+  --bind "$HOME"/.cargo{,} \
+  --dir "$HOME" \
+  --dir /tmp \
+  --dev /dev \
+  --proc /proc \
+  --unshare-user \
+  --unshare-pid \
+  --unshare-net \
+  --unshare-ipc \
+  --unshare-uts \
+  --unshare-cgroup \
+  --die-with-parent \
+  --cap-drop ALL \
+  --hostname build-sandbox \
+  "$@"

@@ -13,6 +13,8 @@ stdenv.mkDerivation {
     mv parent-ns-enter $out/bin
     chmod +x code-sandbox
     mv code-sandbox $out/bin/code-sandbox
+    chmod +x build-sandbox
+    mv build-sandbox $out/bin/build-sandbox
     chmod +x mullvad-browser-sandbox
     mv mullvad-browser-sandbox $out/bin/mullvad-browser-sandbox
     mv mullvadbrowser-sandbox.desktop $out/share/applications/
