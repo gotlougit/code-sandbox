@@ -6,6 +6,9 @@ has access to minimum possible directories and files with as less permissions as
 It also sandboxes Mullvad Browser and Tor Browser from the rest of your system in an attempt
 to mitigate a browser sandbox vulnerability
 
+There is also a `build-sandbox` which can be used to isolate the entirety of your various compilers
+and build systems from the rest of your system
+
 It uses bubblewrap underneath for isolating your shell from the rest of the system.
 
 # Credits
