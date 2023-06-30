@@ -29,6 +29,7 @@ exec bwrap \
   --ro-bind "$HOME"/.rustup{,} \
   --bind "$HOME"/Code{,} \
   --bind "$HOME"/.cargo{,} \
+  --bind /bin/sh{,} \
   --dir "$HOME" \
   --dir /tmp \
   --dev /dev \
