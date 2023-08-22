@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-cp -r "$HOME"/.local/share/tor-browser /tmp
+random_filename=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
+mkdir /tmp/"$random_filename"
+cp -r "$HOME"/.local/share/tor-browser /tmp/"$random_filename"
 set -eum
 export MOZ_ENABLE_WAYLAND=1
 exec bwrap \
@@ -9,7 +11,7 @@ exec bwrap \
   --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
   --bind "$XDG_RUNTIME_DIR"/pulse{,} \
   --bind "$HOME"/Downloads/torbrowser{,} \
-  --bind /tmp/tor-browser "$HOME"/.local/share/tor-browser \
+  --bind /tmp/"$random_filename"/tor-browser "$HOME"/.local/share/tor-browser \
   --dir /tmp \
   --dev /dev \
   --proc /proc \
