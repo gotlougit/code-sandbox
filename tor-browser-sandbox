@@ -12,6 +12,7 @@ exec bwrap \
   --bind "$XDG_RUNTIME_DIR"/pulse{,} \
   --bind "$HOME"/Downloads/torbrowser{,} \
   --bind /tmp/"$random_filename"/tor-browser "$HOME"/.local/share/tor-browser \
+  --bind "$HOME"/.local/share/icons{,} \
   --dir /tmp \
   --dev /dev \
   --proc /proc \
