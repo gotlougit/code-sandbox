@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cp -r "$HOME"/.local/share/tor-browser /tmp
 set -eum
 export MOZ_ENABLE_WAYLAND=1
 exec bwrap \
@@ -8,6 +9,7 @@ exec bwrap \
   --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
   --bind "$XDG_RUNTIME_DIR"/pulse{,} \
   --bind "$HOME"/Downloads/torbrowser{,} \
+  --bind /tmp/tor-browser "$HOME"/.local/share/tor-browser \
   --dir /tmp \
   --dev /dev \
   --proc /proc \
