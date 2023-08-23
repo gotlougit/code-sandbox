@@ -26,7 +26,6 @@ exec bwrap \
   --ro-bind "$HOME"/.gnupg/tofu.db{,} \
   --ro-bind "$HOME"/.gnupg/trustdb.gpg{,} \
   --ro-bind "$HOME"/.gnupg/gpg.conf{,} \
-  --ro-bind "$HOME"/.rustup{,} \
   --bind "$HOME"/Code{,} \
   --bind "$HOME"/.cargo{,} \
   --bind /bin/sh{,} \
