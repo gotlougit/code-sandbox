@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-random_filename=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
+random_filename="tor-browser-"$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 mkdir /tmp/"$random_filename"
 cp -r "$HOME"/.local/share/tor-browser /tmp/"$random_filename"
 set -eum
