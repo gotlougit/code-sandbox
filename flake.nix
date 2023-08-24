@@ -1,5 +1,5 @@
 {
-  inputs.nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   description = "app-sandboxes flake";
 
   outputs = { self, nixpkgs }:
