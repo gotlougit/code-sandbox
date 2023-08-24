@@ -44,5 +44,6 @@ stdenv.mkDerivation rec {
     description = "Create isolated environments for various programs";
     license = licenses.mit;
     platforms = platforms.linux;
+    maintainers = with maintainers; [ gotlougit ];
   };
 }
