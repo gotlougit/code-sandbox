@@ -3,7 +3,7 @@ random_filename="mullvad-browser-"$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold
 mkdir /tmp/"$random_filename"
 cp -r "$HOME"/.mullvad/mullvadbrowser/ /tmp/"$random_filename"
 set -eum
-exec bwrap \
+bwrap \
   --ro-bind /nix/store{,} \
   --ro-bind /etc{,} \
   --ro-bind /run/current-system{,} \
@@ -26,3 +26,4 @@ exec bwrap \
   --cap-drop ALL \
   --hostname gui-sandbox \
   mullvad-browser --profile "$HOME"/.mullvad/mullvadbrowser/default-release "$@"
+rm -rf /tmp/"$random_filename"
