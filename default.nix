@@ -5,7 +5,7 @@ stdenv.mkDerivation {
   version = "0.1";
   src = ./.;
   buildPhase = ''
-    g++ parent-ns-enter.c -o parent-ns-enter
+    cc parent-ns-enter.c -o parent-ns-enter
   '';
   installPhase = ''
     mkdir -p $out/bin
