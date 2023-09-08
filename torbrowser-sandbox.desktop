@@ -4,6 +4,6 @@ Comment=Tor Browser Bundle built by torproject.org
 Exec=tor-browser-sandbox
 GenericName=Web Browser
 Icon=tor-browser
-Name=Tor Browser
+Name=Tor Browser (Sandbox)
 Type=Application
 Version=1.4
