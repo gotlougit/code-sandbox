@@ -3,7 +3,10 @@ random_filename="mullvad-browser-"$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold
 mkdir /tmp/"$random_filename"
 cp -r "$HOME"/.mullvad/mullvadbrowser/ /tmp/"$random_filename"
 set -eum
-bwrap \
+systemd-run \
+  --unit=my-mullvad \
+  --user --scope -p MemoryHigh=400M -p MemoryMax=400M \
+  bwrap \
   --ro-bind /nix/store{,} \
   --ro-bind /etc{,} \
   --ro-bind /run/current-system{,} \

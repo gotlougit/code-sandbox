@@ -4,7 +4,10 @@ mkdir /tmp/"$random_filename"
 cp -r "$HOME"/.local/share/tor-browser /tmp/"$random_filename"
 set -eum
 export MOZ_ENABLE_WAYLAND=1
-bwrap \
+systemd-run \
+  --unit=my-tbb \
+  --user --scope -p MemoryHigh=400M -p MemoryMax=400M \
+  bwrap \
   --ro-bind /nix/store{,} \
   --ro-bind /etc{,} \
   --ro-bind /run/current-system{,} \
