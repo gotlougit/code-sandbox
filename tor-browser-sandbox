@@ -28,5 +28,5 @@ sandbox() {
     --hostname gui-sandbox \
     tor-browser --profile "$HOME"/.local/share/tor-browser/TorBrowser/Data/Browser/profile.default "$@"
 }
-systemctl --user is-active my-tbb.scope && sandbox || systemd-run --unit=my-firefox --user --scope -p MemoryHigh=400M -p MemoryMax=400M sandbox
+systemctl --user is-active my-tbb.scope && sandbox || systemd-run --unit=my-tbb --user --scope -p MemoryHigh=400M -p MemoryMax=400M sandbox
 rm -rf /tmp/"$random_filename"
