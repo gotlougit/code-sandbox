@@ -12,8 +12,10 @@ env bwrap \
   --ro-bind "$HOME"/.bashrc{,} \
   --ro-bind "$HOME"/.config/starship.toml{,} \
   --ro-bind "$HOME"/.config/git{,} \
-  --bind "$HOME"/.cache/blesh{,} \
+  --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
+  --bind "$XDG_RUNTIME_DIR"/pulse{,} \
   --bind /run/user/1000/ssh-agent{,} \
+  --bind "$HOME"/.cache/blesh{,} \
   --bind "$HOME"/Code{,} \
   --bind /bin/sh{,} \
   --bind /usr/bin/env{,} \
