@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eum
 
-bwrap \
+env bwrap \
   --ro-bind /nix/store{,} \
   --ro-bind /etc{,} \
   --ro-bind /run/current-system{,} \
