@@ -16,7 +16,7 @@ env bwrap \
   --bind "$XDG_RUNTIME_DIR"/pulse{,} \
   --bind "$XDG_RUNTIME_DIR"/ssh-agent{,} \
   --bind "$HOME"/.cache/blesh{,} \
-  --bind "$HOME"/Code{,} \
+  --bind "$PWD"{,} \
   --bind /bin/sh{,} \
   --bind /usr/bin/env{,} \
   --dir "$HOME" \
