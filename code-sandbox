@@ -14,7 +14,7 @@ env bwrap \
   --ro-bind "$HOME"/.config/git{,} \
   --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
   --bind "$XDG_RUNTIME_DIR"/pulse{,} \
-  --bind /run/user/1000/ssh-agent{,} \
+  --bind "$XDG_RUNTIME_DIR"/ssh-agent{,} \
   --bind "$HOME"/.cache/blesh{,} \
   --bind "$HOME"/Code{,} \
   --bind /bin/sh{,} \
