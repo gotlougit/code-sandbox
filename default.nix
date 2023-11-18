@@ -22,21 +22,22 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     mkdir -p $out/share/applications
     mv parent-ns-enter $out/bin
-    chmod +x code-sandbox
-    mv code-sandbox $out/bin/code-sandbox
-    chmod +x build-sandbox
-    mv build-sandbox $out/bin/build-sandbox
-    chmod +x mullvad-browser-sandbox
-    mv mullvad-browser-sandbox $out/bin/mullvad-browser-sandbox
+
+    mv code-sandbox $out/bin
+    mv build-sandbox $out/bin
+    mv mullvad-browser-sandbox $out/bin
     mv mullvadbrowser-sandbox.desktop $out/share/applications/
-    chmod +x tor-browser-sandbox
-    mv tor-browser-sandbox $out/bin/tor-browser-sandbox
+
+    mv tor-browser-sandbox $out/bin
     mv torbrowser-sandbox.desktop $out/share/applications/
-    mv okular-sandbox $out/bin/okular-sandbox
+
+    mv okular-sandbox $out/bin
     mv org.kde.okular.desktop $out/share/applications/
-    mv vlc-sandbox $out/bin/vlc-sandbox
+
+    mv vlc-sandbox $out/bin
     mv vlc.desktop $out/share/applications/
-    mv rhythmbox-sandbox $out/bin/rhythmbox-sandbox
+
+    mv rhythmbox-sandbox $out/bin
     mv org.gnome.Rhythmbox3.desktop $out/share/applications/
   '';
 
