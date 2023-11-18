@@ -45,6 +45,9 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/build-sandbox --prefix PATH : "${wrapperPath}"
     wrapProgram $out/bin/tor-browser-sandbox --prefix PATH : "${wrapperPath}"
     wrapProgram $out/bin/mullvad-browser-sandbox --prefix PATH : "${wrapperPath}"
+    wrapProgram $out/bin/okular-sandbox --prefix PATH : "${wrapperPath}"
+    wrapProgram $out/bin/vlc-sandbox --prefix PATH : "${wrapperPath}"
+    wrapProgram $out/bin/rhythmbox-sandbox --prefix PATH : "${wrapperPath}"
   '';
 
   meta = with lib; {
