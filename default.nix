@@ -1,4 +1,4 @@
-{ lib, stdenv, bubblewrap, slirp4netns, xdb-dbus-proxy, makeBinaryWrapper }:
+{ lib, stdenv, bubblewrap, slirp4netns, xdg-dbus-proxy, makeBinaryWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "app-sandboxes";
