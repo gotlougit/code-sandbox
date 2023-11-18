@@ -8,6 +8,16 @@ if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
   export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
 fi
 
+# File forwarding implementation
+file_forward="/tmp/file-forward-"$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
+if [ -n "$1" ]; then
+  # Convert relative path to absolute path
+  file_forward=$(readlink -f "$1")
+else
+  # Create random file
+  touch "$file_forward"
+fi
+
 # A sandboxed dbus filter that 
 # makes things a little safer
 #
@@ -63,6 +73,7 @@ env bwrap \
 --bind "$HOME"/.config/vlc{,} \
 --bind "$HOME"/.config/vlcrc{,} \
 --bind "$HOME"/.local/share/vlc{,} \
+--bind "$file_forward" "$file_forward" \
 --dev-bind /dev/dri /dev/dri \
 --dir /tmp \
 --dev /dev \

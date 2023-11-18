@@ -8,6 +8,16 @@ if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
   export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
 fi
 
+# File forwarding implementation
+file_forward="/tmp/file-forward-"$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
+if [ -n "$1" ]; then
+  # Convert relative path to absolute path
+  file_forward=$(readlink -f "$1")
+else
+  # Create random file
+  touch "$file_forward"
+fi
+
 # A sandboxed dbus filter that 
 # makes things a little safer
 #
@@ -58,7 +68,7 @@ bwrap \
 --bind "$XDG_RUNTIME_DIR/doc" "$XDG_RUNTIME_DIR/doc" \
 --bind "$APP_FOLDER/bus" "$XDG_RUNTIME_DIR/bus" \
 --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
---bind "$HOME"{,} \
+--bind "$file_forward" "$file_forward" \
 --dir /tmp \
 --dev /dev \
 --proc /proc \
