@@ -34,9 +34,9 @@ stdenv.mkDerivation rec {
     mv torbrowser-sandbox.desktop $out/share/applications/
     mv okular-sandbox $out/bin/okular-sandbox
     mv org.kde.okular.desktop $out/share/applications/
-    mv vlc-sandbox $out/bin/okular-sandbox
+    mv vlc-sandbox $out/bin/vlc-sandbox
     mv vlc.desktop $out/share/applications/
-    mv rhythmbox-sandbox $out/bin/okular-sandbox
+    mv rhythmbox-sandbox $out/bin/rhythmbox-sandbox
     mv org.gnome.Rhythmbox3.desktop $out/share/applications/
   '';
 
