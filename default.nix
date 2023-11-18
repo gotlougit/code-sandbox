@@ -1,4 +1,4 @@
-{ lib, stdenv, bubblewrap, slirp4netns, makeBinaryWrapper }:
+{ lib, stdenv, bubblewrap, slirp4netns, xdb-dbus-proxy, makeBinaryWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "app-sandboxes";
@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
   src = ./.;
 
   nativeBuildInputs = [ makeBinaryWrapper ];
-  buildInputs = [ bubblewrap slirp4netns ];
+  buildInputs = [ bubblewrap slirp4netns xdg-dbus-proxy ];
 
   buildPhase = ''
     cc parent-ns-enter.c -o parent-ns-enter
@@ -15,6 +15,7 @@ stdenv.mkDerivation rec {
   wrapperPath = lib.makeBinPath ([
     bubblewrap
     slirp4netns
+    xdg-dbus-proxy
   ]);
 
   installPhase = ''
@@ -31,6 +32,8 @@ stdenv.mkDerivation rec {
     chmod +x tor-browser-sandbox
     mv tor-browser-sandbox $out/bin/tor-browser-sandbox
     mv torbrowser-sandbox.desktop $out/share/applications/
+    mv okular-sandbox $out/bin/okular-sandbox
+    mv org.kde.okular.desktop $out/share/applications/
   '';
 
   postFixup = ''
