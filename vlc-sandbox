@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+APP_NAME="org.vlc.vlc-media-player"
+APP_FOLDER="$XDG_RUNTIME_DIR/app/$APP_NAME"
+mkdir -p "$APP_FOLDER"
+
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+  export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
+fi
+
+# A sandboxed dbus filter that 
+# makes things a little safer
+#
+# Bwrap was initially for --die-with-parent,
+# but was expanded to fix bugs related to portals
+set_up_dbus_proxy() {
+  echo "Starting xdg-dbus-proxy..."
+  bwrap \
+    --new-session \
+    --ro-bind /nix/store{,} \
+    --ro-bind /etc{,} \
+    --ro-bind /run/current-system{,} \
+    --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR" \
+    --ro-bind-data 3 "/.flatpak-info" \
+    --die-with-parent \
+    -- \
+    xdg-dbus-proxy \
+    "$DBUS_SESSION_BUS_ADDRESS" \
+    "$APP_FOLDER/bus" \
+    --filter \
+    --log \
+    --own="org.mpris.MediaPlayer2.vlc" \
+    --talk="org.mpris.MediaPlayer2.Player" \
+    --talk="org.freedesktop.portal.Documents" \
+    --talk="org.freedesktop.portal.Flatpak" \
+    --talk="org.freedesktop.portal.Desktop" \
+    --talk="org.freedesktop.portal.Notifications" \
+    --talk="org.freedesktop.portal.FileChooser" \
+    --talk="org.kde.StatusNotifierWatcher" \
+    --call="org.freedesktop.portal.Desktop=org.freedesktop.portal.Settings.Read@/org/freedesktop/portal/desktop" \
+    --broadcast="org.freedesktop.portal.Desktop=org.freedesktop.portal.Settings.SettingChanged@/org/freedesktop/portal/desktop" 3<<EOF
+[Application]
+name=$APP_NAME
+EOF
+}
+
+set -eum
+set_up_dbus_proxy &
+sleep 0.1
+env bwrap \
+--new-session \
+--ro-bind /nix/store{,} \
+--ro-bind /etc{,} \
+--ro-bind /run/current-system{,} \
+--ro-bind /run/dbus /run/dbus \
+--ro-bind "$HOME"/.config/kdeglobals{,} \
+--bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR" \
+--bind "$XDG_RUNTIME_DIR/doc" "$XDG_RUNTIME_DIR/doc" \
+--bind "$APP_FOLDER/bus" "$XDG_RUNTIME_DIR/bus" \
+--bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
+--bind "$XDG_RUNTIME_DIR"/pipewire-0{,} \
+--bind "$HOME"/.cache/vlc{,} \
+--bind "$HOME"/.config/vlc{,} \
+--bind "$HOME"/.config/vlcrc{,} \
+--bind "$HOME"/.local/share/vlc{,} \
+--dev-bind /dev/dri /dev/dri \
+--dir /tmp \
+--dev /dev \
+--proc /proc \
+--unshare-user \
+--unshare-pid \
+--unshare-uts \
+--unshare-cgroup \
+--share-net \
+--unshare-all \
+--die-with-parent \
+--cap-drop ALL \
+--hostname gui-sandbox \
+--ro-bind-data 3 "/.flatpak-info" \
+--setenv GTK_USE_PORTAL 1 \
+--setenv QT_QPA_PLATFORMTHEME flatpak \
+--setenv XCURSOR_PATH "/run/host/user-share/icons:/run/host/share/icons:$HOME/.icons" \
+-- \
+vlc "$@" \
+3<<EOF
+[Application]
+name=$APP_NAME
+EOF
