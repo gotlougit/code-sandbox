@@ -32,10 +32,10 @@ stdenv.mkDerivation rec {
     mv torbrowser-sandbox.desktop $out/share/applications/
 
     mv okular-sandbox $out/bin
-    mv okular-sandbox.desktop $out/share/applications/
+    mv org.kde.okular.desktop $out/share/applications/
 
     mv vlc-sandbox $out/bin
-    mv vlc-sandbox.desktop $out/share/applications/
+    mv vlc.desktop $out/share/applications/
 
     mv rhythmbox-sandbox $out/bin
     mv org.gnome.Rhythmbox3.desktop $out/share/applications/
