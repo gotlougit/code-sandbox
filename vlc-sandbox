@@ -67,6 +67,7 @@ env bwrap \
 --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR" \
 --bind "$XDG_RUNTIME_DIR/doc" "$XDG_RUNTIME_DIR/doc" \
 --bind "$APP_FOLDER/bus" "$XDG_RUNTIME_DIR/bus" \
+--bind "/tmp/.X11-unix"{,} \
 --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
 --bind "$XDG_RUNTIME_DIR"/pipewire-0{,} \
 --bind "$HOME"/.cache/vlc{,} \
@@ -76,9 +77,9 @@ env bwrap \
 --bind /run/opengl-driver{,} \
 --bind /sys/devices{,} \
 --bind "$file_forward" "$file_forward" \
+--dev /dev \
 --dev-bind /dev/dri /dev/dri \
 --dir /tmp \
---dev /dev \
 --proc /proc \
 --unshare-user \
 --unshare-pid \
@@ -90,7 +91,6 @@ env bwrap \
 --cap-drop ALL \
 --hostname gui-sandbox \
 --ro-bind-data 3 "/.flatpak-info" \
---setenv GTK_USE_PORTAL 1 \
 --setenv QT_QPA_PLATFORMTHEME flatpak \
 --setenv XCURSOR_PATH "/run/host/user-share/icons:/run/host/share/icons:$HOME/.icons" \
 -- \
