@@ -43,7 +43,7 @@ EOF
 set -eum
 set_up_dbus_proxy &
 sleep 0.1
-bwrap \
+env bwrap \
 --new-session \
 --ro-bind /nix/store{,} \
 --ro-bind /etc{,} \
