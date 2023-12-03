@@ -37,8 +37,6 @@ stdenv.mkDerivation rec {
     mv vlc-sandbox $out/bin
     mv vlc.desktop $out/share/applications/
 
-    mv rhythmbox-sandbox $out/bin
-    mv org.gnome.Rhythmbox3.desktop $out/share/applications/
   '';
 
   postFixup = ''
@@ -48,7 +46,6 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/mullvad-browser-sandbox --prefix PATH : "${wrapperPath}"
     wrapProgram $out/bin/okular-sandbox --prefix PATH : "${wrapperPath}"
     wrapProgram $out/bin/vlc-sandbox --prefix PATH : "${wrapperPath}"
-    wrapProgram $out/bin/rhythmbox-sandbox --prefix PATH : "${wrapperPath}"
   '';
 
   meta = with lib; {
