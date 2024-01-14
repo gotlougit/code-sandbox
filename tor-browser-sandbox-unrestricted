@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+random_filename="tor-browser-"$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
+mkdir /tmp/"$random_filename"
+cp -r "$HOME"/.local/share/tor-browser /tmp/"$random_filename"
+set -eum
+export MOZ_ENABLE_WAYLAND=1
+bwrap \
+  --ro-bind /nix/store{,} \
+  --ro-bind /etc{,} \
+  --ro-bind /run/current-system{,} \
+  --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
+  --bind "$XDG_RUNTIME_DIR"/pulse{,} \
+  --bind "$HOME"/Downloads/torbrowser{,} \
+  --bind /tmp/"$random_filename"/tor-browser "$HOME"/.local/share/tor-browser \
+  --bind "$HOME"/.local/share/icons{,} \
+  --dir /tmp \
+  --dev /dev \
+  --proc /proc \
+  --unshare-user \
+  --unshare-pid \
+  --unshare-uts \
+  --unshare-cgroup \
+  --unshare-all \
+  --share-net \
+  --die-with-parent \
+  --cap-drop ALL \
+  --hostname gui-sandbox \
+  tor-browser --profile "$HOME"/.local/share/tor-browser/TorBrowser/Data/Browser/profile.default "$@"''
+rm -rf /tmp/"$random_filename"

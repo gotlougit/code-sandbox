@@ -20,9 +20,11 @@ stdenv.mkDerivation rec {
     mv code-sandbox $out/bin
     mv build-sandbox $out/bin
     mv mullvad-browser-sandbox $out/bin
+    mv mullvad-browser-sandbox-unrestricted $out/bin
     mv mullvadbrowser-sandbox.desktop $out/share/applications/
 
     mv tor-browser-sandbox $out/bin
+    mv tor-browser-sandbox-unrestricted $out/bin
     mv torbrowser-sandbox.desktop $out/share/applications/
 
     mv okular-sandbox $out/bin
