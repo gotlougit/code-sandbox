@@ -1,4 +1,4 @@
-{ lib, stdenv, bubblewrap, slirp4netns, xdg-dbus-proxy, makeBinaryWrapper }:
+{ lib, stdenv, bubblewrap, xdg-dbus-proxy, makeBinaryWrapper }:
 
 stdenv.mkDerivation rec {
   pname = "app-sandboxes";
@@ -6,22 +6,16 @@ stdenv.mkDerivation rec {
   src = ./.;
 
   nativeBuildInputs = [ makeBinaryWrapper ];
-  buildInputs = [ bubblewrap slirp4netns xdg-dbus-proxy ];
-
-  buildPhase = ''
-    cc parent-ns-enter.c -o parent-ns-enter
-  '';
+  buildInputs = [ bubblewrap xdg-dbus-proxy ];
 
   wrapperPath = lib.makeBinPath ([
     bubblewrap
-    slirp4netns
     xdg-dbus-proxy
   ]);
 
   installPhase = ''
     mkdir -p $out/bin
     mkdir -p $out/share/applications
-    mv parent-ns-enter $out/bin
 
     mv code-sandbox $out/bin
     mv build-sandbox $out/bin
