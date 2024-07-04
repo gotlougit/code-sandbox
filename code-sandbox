@@ -9,13 +9,12 @@ env bwrap \
   --ro-bind "$HOME"/.config/helix{,} \
   --ro-bind "$HOME"/.ssh/known_hosts{,} \
   --ro-bind "$HOME"/.ssh/config{,} \
-  --ro-bind "$HOME"/.bashrc{,} \
+  --ro-bind "$HOME"/.config/fish{,} \
   --ro-bind "$HOME"/.config/starship.toml{,} \
   --ro-bind "$HOME"/.config/git{,} \
   --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
   --bind "$XDG_RUNTIME_DIR"/pulse{,} \
   --bind "$XDG_RUNTIME_DIR"/ssh-agent{,} \
-  --bind "$HOME"/.cache/blesh{,} \
   --bind "$PWD"{,} \
   --bind /bin/sh{,} \
   --bind /usr/bin/env{,} \
