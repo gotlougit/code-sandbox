@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-random_scope="mullvad-browser-"$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
-systemd-run --unit=$random_scope --user --scope -p MemoryHigh=400M -p MemoryMax=400M mullvad-browser-sandbox-unrestricted
+random_scope="mullvad-browser-"$(tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w 10 | head -n 1)
+systemd-run --unit="$random_scope" --user --scope -p MemoryHigh=400M -p MemoryMax=400M mullvad-browser-sandbox-unrestricted

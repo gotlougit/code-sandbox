@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
-random_filename="mullvad-browser-"$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
-mkdir /tmp/"$random_filename"
-cp -r "$HOME"/.mullvad/mullvadbrowser/ /tmp/"$random_filename"
 set -eum
-alias sandbox=''
-    bwrap \
+export MOZ_ENABLE_WAYLAND=1
+bwrap \
     --ro-bind /nix/store{,} \
     --ro-bind /etc{,} \
     --ro-bind /run/current-system{,} \
     --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
     --bind "$XDG_RUNTIME_DIR"/pulse{,} \
-    --bind /tmp/"$random_filename" "$HOME"/.mullvad \
+    --bind "$HOME"/.mullvad/mullvadbrowser{,} \
     --bind "$HOME"/.local/share/icons{,} \
     --bind "$HOME"/Downloads{,} \
     --dir "$HOME" \
@@ -26,6 +23,4 @@ alias sandbox=''
     --die-with-parent \
     --cap-drop ALL \
     --hostname gui-sandbox \
-    mullvad-browser --profile "$HOME"/.mullvad/mullvadbrowser/default-release "$@"''
-systemctl --user is-active my-mullvad.scope && sandbox || systemd-run --unit=my-mullvad --user --scope -p MemoryHigh=400M -p MemoryMax=400M sandbox
-rm -rf /tmp/"$random_filename"
+    mullvad-browser --profile "$HOME"/.mullvad/mullvadbrowser/default-release
