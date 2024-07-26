@@ -15,23 +15,18 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin
-    mkdir -p $out/share/applications
 
     mv code-sandbox $out/bin
     mv build-sandbox $out/bin
     mv mullvad-browser-sandbox $out/bin
     mv mullvad-browser-sandbox-unrestricted $out/bin
-    mv mullvadbrowser-sandbox.desktop $out/share/applications/
 
     mv tor-browser-sandbox $out/bin
     mv tor-browser-sandbox-unrestricted $out/bin
-    mv torbrowser-sandbox.desktop $out/share/applications/
 
     mv okular-sandbox $out/bin
-    mv org.kde.okular.desktop $out/share/applications/
 
     mv vlc-sandbox $out/bin
-    mv vlc.desktop $out/share/applications/
 
   '';
 
