@@ -1,3 +1,26 @@
 #!/usr/bin/env bash
-random_scope="mullvad-browser-"$(tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w 10 | head -n 1)
-systemd-run --unit="$random_scope" --user --scope -p MemoryHigh=400M -p MemoryMax=400M mullvad-browser-sandbox-unrestricted
+set -eum
+export MOZ_ENABLE_WAYLAND=1
+bwrap \
+    --ro-bind /nix/store{,} \
+    --ro-bind /etc{,} \
+    --ro-bind /run/current-system{,} \
+    --bind "$XDG_RUNTIME_DIR"/wayland-0{,} \
+    --bind "$XDG_RUNTIME_DIR"/pulse{,} \
+    --bind "$HOME"/.mullvad/mullvadbrowser{,} \
+    --bind "$HOME"/.local/share/icons{,} \
+    --bind "$HOME"/Downloads{,} \
+    --dir "$HOME" \
+    --dir /tmp \
+    --dev /dev \
+    --proc /proc \
+    --unshare-user \
+    --unshare-pid \
+    --unshare-uts \
+    --unshare-cgroup \
+    --unshare-all \
+    --share-net \
+    --die-with-parent \
+    --cap-drop ALL \
+    --hostname gui-sandbox \
+    mullvad-browser --profile "$HOME"/.mullvad/mullvadbrowser/default-release
